@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+
+  <?include AppVariables.wxi?>
+  
+	<Product Id="*" Name="$(var.ProductName)"
+           Language="1033" 
+           Version="$(var.VersionNumber)"
+           Manufacturer="$(var.ManufacturerName)"
+           UpgradeCode="$(var.UpgradeCode)"
+           >
+    
+		<Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
+
+		<MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
+		<MediaTemplate EmbedCab="yes"/>
+
+		<Feature Id="ProductFeature" Title="SetupProject" Level="1">
+			<ComponentGroupRef Id="ProductComponents" />
+		</Feature>
+	</Product>
+
+
+	<Fragment>
+		<ComponentGroup Id="ProductComponents" Directory="INSTALLFOLDER">
+			<!-- TODO: Remove the comments around this Component element and the ComponentRef below in order to add resources to this installer. -->
+			<!-- <Component Id="ProductComponent"> -->
+				<!-- TODO: Insert files, registry keys, and other resources here. -->
+			<!-- </Component> -->
+
+      <ComponentRef Id="C.RegistRegistryInfo"/>
+      <ComponentGroupRef Id="C.CommonComponentGroupId"/>
+      <ComponentGroupRef Id="C.InstallFilesComponentGroupId"/>
+
+      <ComponentRef Id="C.ApplicationShortcut"/>
+      <ComponentRef Id="C.DesktopFolderShortcut"/>
+		</ComponentGroup>
+
+
+    <!-- 在64位系统中，位置为:SOFTWARE\WOW6432Node\Microsoft\DIAView -->
+    <DirectoryRef Id="TARGETDIR">
+      <Component Id="C.RegistRegistryInfo" Guid="C26D6547-BB6B-49C3-9286-8DCDC1961B3D">
+        <RegistryKey  Root="HKLM" Key="$(var.RegistKeyRoot)">
+          <RegistryValue Type="integer" Name="Installed" Value="1" KeyPath="yes" />
+          <RegistryValue Type="string" Name="Version" Value="$(var.MajorMinor).0.0" />
+          <RegistryValue Type="string" Name="InstallPath" Value="[SetupFolder]" />
+          <RegistryValue Type="integer" Name="SupportWeb" Value="1" />
+        </RegistryKey>
+      </Component>
+    </DirectoryRef>
+
+    <UIRef Id="WixUI_InstallDir" />
+    <Property Id="WIXUI_INSTALLDIR" Value="INSTALLFOLDER" />
+    
+	</Fragment>
+</Wix>

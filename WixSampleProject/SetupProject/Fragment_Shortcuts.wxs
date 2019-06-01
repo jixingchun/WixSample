@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+
+  <?include AppVariables.wxi?>
+  
+  <!--快捷方式-->
+  <Fragment>
+
+    <Icon Id="Icon.StartApp" SourceFile="$(var.Images)App.svg"  />
+    <Icon Id="Icon.Uninstaller" SourceFile="$(var.Images)Unistall.svg"/>
+    
+    <DirectoryRef Id="ApplicationProgramsFolder">
+      <Component Id="C.ApplicationShortcut" Guid="5A254682-DD5F-453D-8333-144457282046">
+        <!--App Link-->
+        <Shortcut Id="ApplicationStartMenuShortcut"
+                  Name="!(loc.AppShortcutName)"
+                  Description="!(loc.AppShortcutNameDescription)"
+                  Target="[SetupFolder]App.txt"
+                  Icon="Icon.StartApp"
+                  WorkingDirectory="SetupFolder">
+          
+        </Shortcut>
+
+        <!--卸载-->
+        <Shortcut Id="UninstallProduct"
+                           Name="!(loc.UninstallName)"
+                           Description="!(loc.UninstallNameDescription)"
+                           Target="[SystemFolder]msiexec.exe"
+                           Icon="Icon.Uninstaller"
+                           Arguments="/x [ProductCode]">
+        </Shortcut>
+
+        <RemoveFolder Id="RemoveApplicationProgramsFolder" On="uninstall" Directory="ApplicationProgramsFolder"/>
+        <RegistryValue Root="HKCU" Key="$(var.RegistKeyRoot)" Name="Installed" Type="integer" Value="1" KeyPath="yes"/>
+
+      </Component>
+    </DirectoryRef>
+
+    <!--桌面快捷方式-->
+    <DirectoryRef Id="DesktopFolder">
+      <Component Id="C.DesktopFolderShortcut" Guid="5A254682-DD1F-453D-8333-144457282027">
+        <Shortcut Id="DesktopShortcut" 
+                  Directory="DesktopFolder"   
+                  Name="!(loc.AppShortcutName)"
+                  Description="!(loc.AppShortcutNameDescription)"
+                  Target="[SetupFolder]App.txt"
+                  WorkingDirectory="SetupFolder" Icon="Icon.StartApp" />
+        <RegistryValue Root="HKCU" 
+                       Key="$(var.RegistKeyRoot)\Run" 
+                       Name="DSinstalled" 
+                       Type="integer" Value="1" KeyPath="yes"/>
+        <RemoveFolder Id="RemoveDesktopFolder" On="uninstall" />
+      </Component>
+
+    </DirectoryRef>
+  </Fragment>
+</Wix>

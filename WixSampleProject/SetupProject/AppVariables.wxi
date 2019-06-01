@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Include>
+	<!-- TODO: Put your code here. -->
+  <?define MajorVersion = "1"?>
+  <?define MinorVersion = "1"?>
+  <?define MajorMinor = "$(var.MajorVersion).$(var.MinorVersion)"?>
+  <?define PatchVersion = "1"?>
+  <?define VersionNumber = "$(var.MajorVersion).$(var.MinorVersion).$(var.PatchVersion)"?>
+
+  <?define ProductName = "SetupProject"?>
+  <?define LANG = "1033"?>
+  <?define ManufacturerName = "jxc"?>
+  <?define UpgradeCode = "ab89e516-69e4-411f-b618-31c50f4063b3" ?>
+
+  <?define Images = "Images\"?>
+
+
+  <?define RegistKeyRoot = "Software\jxc\SetupProjectSample"?>
+  
+  <?define HKLM_RegistKeyRoot = "Software\Delta\DIAview\UserProject"?>
+  <?define HKCU_RegistKeyRoot = "Software\Delta\DIAview\UserProject"?>
+
+  <?define SourceDir = "Software\Delta\DIAview\UserProject"?>
+  
+</Include>

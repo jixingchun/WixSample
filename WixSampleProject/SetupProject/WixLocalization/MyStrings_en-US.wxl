@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WixLocalization Culture="en-us" Codepage="1252" xmlns="http://schemas.microsoft.com/wix/2006/localization">
+  
+  <String Id="Lang">1033</String>
+  <String Id="Code">1252</String>
+  
+  <String Id="AppShortcutName">MyApp</String>
+  <String Id="AppShortcutNameDescription">This is app's descrption</String>
+
+
+  
+  <String Id="UninstallName">Uninstall</String>
+  <String Id="UninstallNameDescription">This is uninstall descrption</String>
+  
+  <String Id="LicenseRtf">License\license_en.rtf</String>
+
+  
+</WixLocalization>
