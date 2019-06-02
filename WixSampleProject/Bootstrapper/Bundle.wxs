@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+	<Bundle Name="Bootstrapper" Version="1.0.0.0" Manufacturer="jxc" UpgradeCode="bf043817-76a9-4696-a0e4-eec59e8fb62c">
+		<BootstrapperApplicationRef Id="WixStandardBootstrapperApplication.RtfLicense" />
+
+		<Chain>
+			<!-- TODO: Define the list of chained packages. -->
+			<!-- <MsiPackage SourceFile="path\to\your.msi" /> -->
+      <MsiPackage SourceFile="C:\Users\jixingchun\source\repos\WixSample\WixSampleProject\SetupProject\bin\Debug\en-us\SetupProject.msi" 
+                  Compressed="no"
+                  ForcePerMachine="yes"
+                  Permanent="no"
+                  Vital="yes"
+                  DisplayInternalUI="no">
+        <MsiProperty Name="INSTALLFOLDER" Value="D:\Test" />
+
+      </MsiPackage>
+
+      <MsiPackage SourceFile="C:\Users\jixingchun\source\repos\WixSample\WixSampleProject\SetupProject2\bin\Debug\SetupProject2.msi"
+          Compressed="no"
+          ForcePerMachine="yes"
+          Permanent="no"
+          Vital="yes"
+          DisplayInternalUI="no">
+      </MsiPackage>
+      
+		</Chain>
+	</Bundle>
+</Wix>

@@ -17,9 +17,9 @@
 
   <?define RegistKeyRoot = "Software\jxc\SetupProjectSample"?>
   
-  <?define HKLM_RegistKeyRoot = "Software\Delta\DIAview\UserProject"?>
-  <?define HKCU_RegistKeyRoot = "Software\Delta\DIAview\UserProject"?>
+  <?define HKLM_RegistKeyRoot = "Software\jxc\SetupProjectSample"?>
+  <?define HKCU_RegistKeyRoot = "Software\jxc\SetupProjectSample"?>
 
-  <?define SourceDir = "Software\Delta\DIAview\UserProject"?>
+  <?define SourceDir = "Software\jxc\SetupProjectSample"?>
   
 </Include>

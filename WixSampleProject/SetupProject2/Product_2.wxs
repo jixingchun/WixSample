@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+	<Product Id="*" Name="SetupProject2" Language="1033" Version="1.0.0.0" Manufacturer="jxc" UpgradeCode="97e03a1b-ff23-458a-b16d-fa65c3828cde">
+		<Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
+
+		<MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
+		<MediaTemplate EmbedCab="yes" />
+
+		<Feature Id="ProductFeature" Title="SetupProject2" Level="1">
+			<ComponentGroupRef Id="ProductComponents" />
+		</Feature>
+	</Product>
+
+	<Fragment>
+		<Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="INSTALLFOLDER">
+        <Directory Id="SetupFolder" Name="SetupProject2" />
+      </Directory>
+		</Directory>
+
+    <!-- 获取SetupProjectSample安装目录位置 -->
+    <Property Id="INSTALLFOLDER" >
+      <RegistrySearch Id="RegistrySearch_SetupProject"
+                      Root="HKLM"
+                      Key="Software\jxc\SetupProjectSample"
+                      Name="InstallPath" Type="raw" />
+    </Property>
+
+    <UIRef Id="WixUI_InstallDir" />
+    <Property Id="WIXUI_INSTALLDIR" Value="INSTALLFOLDER" />
+
+    <DirectoryRef Id="SetupFolder">
+      <Component Id="C.70000001" Guid="{a5bdc3a6-195d-481f-b975-3d01c3edcf6a}">
+        <File Id="F.70000001" Source="PackageResource\Text3.txt" />
+        <RemoveFolder Id="RF.70000001" On="uninstall" />
+      </Component>
+      <Component Id="C.70000002" Guid="{a6bdc3a6-195d-481f-b975-3d01c3edcf6a}">
+        <File Id="F.70000002" Source="PackageResource\Text4.txt" />
+        <RemoveFolder Id="RF.70000002" On="uninstall" />
+      </Component>
+    </DirectoryRef>
+
+	</Fragment>
+
+	<Fragment>
+		<ComponentGroup Id="ProductComponents" Directory="INSTALLFOLDER">
+			<!-- TODO: Remove the comments around this Component element and the ComponentRef below in order to add resources to this installer. -->
+			<!-- <Component Id="ProductComponent"> -->
+				<!-- TODO: Insert files, registry keys, and other resources here. -->
+			<!-- </Component> -->
+      <ComponentRef Id="C.70000001"/>
+      <ComponentRef Id="C.70000002"/>
+		</ComponentGroup>
+	</Fragment>
+
+</Wix>

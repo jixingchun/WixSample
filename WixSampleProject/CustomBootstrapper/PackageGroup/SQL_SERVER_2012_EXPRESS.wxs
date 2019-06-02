@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi"
+     xmlns:util="http://schemas.microsoft.com/wix/UtilExtension">
+  <Fragment>
+    <?define SqlServerInstance=TEST ?>
+
+    <?define SqlInstallCommand=/ACTION=Install /Q /
+        IACCEPTSQLSERVERLICENSETERMS /FEATURES=SQLEngine /INSTANCENAME=$(var.SqlServerInstance) /SQLSYSADMINACCOUNTS=BUILTIN\Administrators /
+        SECURITYMODE=SQL /SAPWD=password1 ?>
+    <?define SqlUninstallCommand=/ACTION=Uninstall /Q /FEATURES=SQLEngine
+        /INSTANCENAME=$(var.SqlServerInstance) ?>
+    <?define SqlRepairCommand=/ACTION=Repair /Q /FEATURES=SQLEngine /
+        INSTANCENAME=$(var.SqlServerInstance) /FEATURES=SQLENGINE ?>
+    
+    <util:RegistrySearch
+      Id="SqlInstanceFound"
+      Root="HKLM"
+      Key="SOFTWARE\Microsoft\Microsoft SQL Server\Instance Names\SQL"
+      Value="$(var.SqlServerInstance)"
+      Result="exists"
+      Variable="SqlInstanceFound" />
+    
+
+    <PackageGroup Id="SQL_SERVER_2012_EXPRESS">
+      <ExePackage
+        Id="SQLSERVER64"
+        SourceFile="D:\MSI\DIAViewSetup\SQL\SQLEXPR_x64_ENU.exe"
+        Name="SQLEXPR_x64_ENU.exe"
+        Compressed="no"
+        DetectCondition="SqlInstanceFound"
+        InstallCommand="$(var.SqlInstallCommand)"
+        UninstallCommand="$(var.SqlUninstallCommand)"
+        RepairCommand="$(var.SqlRepairCommand)">
+
+      </ExePackage>
+
+      <ExePackage
+        Id="SQLSERVER86"
+        SourceFile="D:\MSI\DIAViewSetup\SQL\SQLEXPR_x86_ENU.exe"
+        Name="SQLEXPR_x86_ENU.exe"
+        Compressed="no"
+        DetectCondition="SqlInstanceFound "
+        InstallCommand="$(var.SqlInstallCommand)"
+        UninstallCommand="$(var.SqlUninstallCommand)"
+        RepairCommand="$(var.SqlRepairCommand)">
+      </ExePackage>
+
+
+    </PackageGroup>
+  </Fragment>
+</Wix>

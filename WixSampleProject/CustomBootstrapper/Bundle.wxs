@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi"
+     xmlns:bal="http://schemas.microsoft.com/wix/BalExtension"
+     xmlns:util="http://schemas.microsoft.com/wix/UtilExtension">
+	<Bundle Name="CustomBootstrapper" Version="1.0.0.0" Manufacturer="jxc" UpgradeCode="a521957b-8563-43cf-8830-e364b5ff2af5">
+
+    <BootstrapperApplicationRef Id="ManagedBootstrapperApplicationHost.RtfLicense">
+      <bal:WixManagedBootstrapperApplicationHost
+        LicenseFile="License.rtf"
+
+        />
+      <Payload SourceFile="C:\Users\jixingchun\source\repos\WixSample\WixSampleProject\CustomBootstrapper\License.rtf" />
+      <Payload SourceFile="C:\Users\jixingchun\source\repos\WixSample\WixSampleProject\CustomBootstrapperApplication\bin\Debug\CustomBootstrapperApplication.dll" />
+      <Payload SourceFile="C:\Users\jixingchun\source\repos\WixSample\WixSampleProject\CustomBootstrapperApplication\bin\Debug\BootstrapperCore.config" />
+      <Payload SourceFile="C:\Users\jixingchun\source\repos\WixSample\WixSampleProject\CustomBootstrapperApplication\bin\Debug\Microsoft.Practices.Prism.dll" />
+
+    </BootstrapperApplicationRef>
+
+    <WixVariable Id="WixMbaPrereqPackageId" Value=""/>
+
+    <!-- 只可以安装在Win7系统 -->
+    <!--<bal:Condition Message="!(loc.InstallOsCheckNgMessage)">
+      <![CDATA[VersionNT=v6.0]]>
+    </bal:Condition>-->
+
+    <WixVariable Id="NetFx45RedistPackageDirectory" Value="DotNet\dotnetfx45_full_x86_x64.exe" />
+    
+		<Chain>
+      
+      <MsiPackage SourceFile="C:\Users\jixingchun\source\repos\WixSample\WixSampleProject\SetupProject\bin\Debug\en-us\SetupProject.msi"
+            Compressed="no"
+            ForcePerMachine="yes"
+            Permanent="no"
+            Vital="yes"
+            DisplayInternalUI="no">
+        <MsiProperty Name="INSTALLFOLDER" Value="D:\Test" />
+
+      </MsiPackage>
+
+      <MsiPackage SourceFile="C:\Users\jixingchun\source\repos\WixSample\WixSampleProject\SetupProject2\bin\Debug\SetupProject2.msi"
+          Compressed="no"
+          ForcePerMachine="yes"
+          Permanent="no"
+          Vital="yes"
+          DisplayInternalUI="no">
+      </MsiPackage>
+		</Chain>
+	</Bundle>
+</Wix>
