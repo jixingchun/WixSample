@@ -23,7 +23,7 @@
       <![CDATA[VersionNT=v6.0]]>
     </bal:Condition>-->
 
-    <WixVariable Id="NetFx45RedistPackageDirectory" Value="DotNet\dotnetfx45_full_x86_x64.exe" />
+    <!--<WixVariable Id="NetFx45RedistPackageDirectory" Value="DotNet\dotnetfx45_full_x86_x64.exe" />-->
     
 		<Chain>
       

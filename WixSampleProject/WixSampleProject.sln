@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomBootstrapperApplicati
 EndProject
 Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "CustomBootstrapper", "CustomBootstrapper\CustomBootstrapper.wixproj", "{A521957B-8563-43CF-8830-E364B5FF2AF5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BA", "BA\BA.csproj", "{6A3E6800-2D0C-4B83-B096-DB52EB8D6340}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -53,12 +55,20 @@ Global
 		{A521957B-8563-43CF-8830-E364B5FF2AF5}.Release|Any CPU.ActiveCfg = Release|x86
 		{A521957B-8563-43CF-8830-E364B5FF2AF5}.Release|x86.ActiveCfg = Release|x86
 		{A521957B-8563-43CF-8830-E364B5FF2AF5}.Release|x86.Build.0 = Release|x86
+		{6A3E6800-2D0C-4B83-B096-DB52EB8D6340}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6A3E6800-2D0C-4B83-B096-DB52EB8D6340}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6A3E6800-2D0C-4B83-B096-DB52EB8D6340}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{6A3E6800-2D0C-4B83-B096-DB52EB8D6340}.Debug|x86.Build.0 = Debug|Any CPU
+		{6A3E6800-2D0C-4B83-B096-DB52EB8D6340}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6A3E6800-2D0C-4B83-B096-DB52EB8D6340}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6A3E6800-2D0C-4B83-B096-DB52EB8D6340}.Release|x86.ActiveCfg = Release|Any CPU
+		{6A3E6800-2D0C-4B83-B096-DB52EB8D6340}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		EnterpriseLibraryConfigurationToolBinariesPath = packages\Unity.2.1.505.0\lib\NET35
 		SolutionGuid = {ED65E1FA-63F1-4908-9E20-7F37133E6DA9}
+		EnterpriseLibraryConfigurationToolBinariesPath = packages\Unity.2.1.505.0\lib\NET35
 	EndGlobalSection
 EndGlobal
