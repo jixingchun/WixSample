@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{6A3E6800-2D0C-4B83-B096-DB52EB8D6340}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>BA</RootNamespace>
-    <AssemblyName>BA</AssemblyName>
+    <RootNamespace>ProjectPack.BA</RootNamespace>
+    <AssemblyName>ProjectPack.BA</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -54,6 +54,9 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="InstallView.xaml.cs">
+      <DependentUpon>InstallView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="PropertyNotifyBase.cs" />
     <Compile Include="RelayCommand.cs" />
     <Compile Include="RootView.xaml.cs">
@@ -63,6 +66,10 @@
     <Compile Include="UpdateViewModel.cs" />
     <Compile Include="WixBA.cs" />
     <Compile Include="WixDistribution.cs" />
+    <Page Include="InstallView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="SelectLanguage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

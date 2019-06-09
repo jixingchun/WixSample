@@ -29,7 +29,8 @@ namespace ProjectPack.BA
         /// <summary>
         /// Gets the global view.
         /// </summary>
-        static public RootView View { get; private set; }
+        //static public RootView View { get; private set; }
+        static public InstallView View { get; private set; }
         // TODO: We should refactor things so we dont have a global View.
 
         /// <summary>
@@ -129,7 +130,10 @@ namespace ProjectPack.BA
                 WixBA.Model.Command.Display == Display.Full)
             {
                 this.Engine.Log(LogLevel.Verbose, "Creating a UI.");
-                WixBA.View = new RootView(viewModel);
+                //WixBA.View = new RootView(viewModel);
+
+                WixBA.View = new InstallView(viewModel);
+
                 WixBA.View.Show();
             }
 

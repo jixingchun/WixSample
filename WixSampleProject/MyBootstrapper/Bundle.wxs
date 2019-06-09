@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi"
+     xmlns:bal="http://schemas.microsoft.com/wix/BalExtension"
+     xmlns:util="http://schemas.microsoft.com/wix/UtilExtension">
+  <Bundle Name="DIAView Project Setup" Version="1.0.0.0"
+          Manufacturer="delta"
+          UpgradeCode="494E77F0-78DD-4CF8-9C31-4D8E25BB6E64"
+          >
+
+    <BootstrapperApplicationRef Id="ManagedBootstrapperApplicationHost.RtfLicense">
+
+      <bal:WixManagedBootstrapperApplicationHost
+        NetFxPackageId="Netfx4Full"
+        LicenseFile="License.rtf"
+        
+        />
+
+      <!--NetFxPackageId="NetFx40Redist"
+      LogoFile="diaapp.ico"
+      LocalizationFile="LanResource\WixUI_zh-CN.wxl"-->
+
+      <!---->
+      <!--<Payload SourceFile="D:\work\Source\Common\Trial\Xingchun.ji\ProjectPack\ProjectPack.RuntimeMsiSetup\WixResources\License\license_zh-CN.rtf" />-->
+      <!--<Payload SourceFile="..\BA\bin\Debug\ProjectPack.BA.dll" />
+      <Payload SourceFile="..\BA\WixBA.BootstrapperCore.config" />-->
+
+      <Payload SourceFile="C:\Users\jixingchun\source\repos\WixSample\WixSampleProject\BA\bin\Debug\ProjectPack.BA.dll" />
+      <Payload SourceFile="C:\Users\jixingchun\source\repos\WixSample\WixSampleProject\BA\WixBA.BootstrapperCore.config" />
+
+
+    </BootstrapperApplicationRef>
+
+    <!--<WixVariable Id="WixMbaPrereqPackageId" Value="Netfx4Full"/>-->
+
+
+    <!--<util:RegistrySearch Root="HKLM" Key="SOFTWARE\Microsoft\Net Framework Setup\NDP\v4\Full" Value="Version" Variable="Net4FullVersion" />
+    <util:RegistrySearch Root="HKLM" Key="SOFTWARE\Microsoft\Net Framework Setup\NDP\v4\Full" Value="Version" Variable="Net4x64FullVersion" Win64="yes" />-->
+
+    <!--<WixVariable Id="NetFx45RedistPackageDirectory" Value="DotNet\dotnetfx45_full_x86_x64.exe" />-->
+    
+    
+
+    <!--<Variable Name="LaunchTarget" Value="[InstallFolder]\HMIRun.exe"/>-->
+
+    <Chain>
+
+      <MsiPackage SourceFile="C:\Users\jixingchun\source\repos\WixSample\WixSampleProject\SetupProject\bin\Debug\en-us\SetupProject.msi"
+          Compressed="no"
+          ForcePerMachine="yes"
+          Permanent="no"
+          Vital="yes"
+          DisplayInternalUI="no">
+        <MsiProperty Name="INSTALLFOLDER" Value="D:\Test" />
+
+      </MsiPackage>
+
+      <MsiPackage SourceFile="C:\Users\jixingchun\source\repos\WixSample\WixSampleProject\SetupProject2\bin\Debug\SetupProject2.msi"
+          Compressed="no"
+          ForcePerMachine="yes"
+          Permanent="no"
+          Vital="yes"
+          DisplayInternalUI="no">
+      </MsiPackage>
+
+
+    </Chain>
+
+  </Bundle>
+</Wix>
