@@ -48,7 +48,7 @@
     <DirectoryRef Id="MyPersonalFolderId">
       <Component Id="C.MyPersonalFolder" Guid="32E67E8A-EC27-493D-8B82-71BE46D8C52B">
         
-        <RegistryKey  Root="HKCU" Key="$(var.RegistKeyRoot)\PersonalFolder">
+        <RegistryKey  Root="HKCU" Key="$(var.RegistKeyRoot)\PersonalFolder" Action="createAndRemoveOnUninstall">
           <RegistryValue Type="string" Name="InstallPath" Value="[PersonalFolder]\MyPersonalFolder" KeyPath="yes" />
         </RegistryKey>
         

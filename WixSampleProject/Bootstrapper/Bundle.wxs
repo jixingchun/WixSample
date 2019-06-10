@@ -6,6 +6,8 @@
 		<Chain>
 			<!-- TODO: Define the list of chained packages. -->
 			<!-- <MsiPackage SourceFile="path\to\your.msi" /> -->
+      <PackageGroupRef Id="NetFx45Redist" />
+      
       <MsiPackage SourceFile="C:\Users\jixingchun\source\repos\WixSample\WixSampleProject\SetupProject\bin\Debug\en-us\SetupProject.msi" 
                   Compressed="no"
                   ForcePerMachine="yes"

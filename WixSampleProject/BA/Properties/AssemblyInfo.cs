@@ -1,4 +1,6 @@
-﻿using System.Reflection;
+﻿using Microsoft.Tools.WindowsInstallerXml.Bootstrapper;
+using ProjectPack.BA;
+using System.Reflection;
 using System.Resources;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
@@ -53,3 +55,5 @@ using System.Windows;
 // [assembly: AssemblyVersion("1.0.*")]
 [assembly: AssemblyVersion("1.0.0.0")]
 [assembly: AssemblyFileVersion("1.0.0.0")]
+
+[assembly: BootstrapperApplication(typeof(WixBA))]
