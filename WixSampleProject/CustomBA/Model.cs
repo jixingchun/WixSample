@@ -1,6 +1,6 @@
 
 
-namespace ProjectPack.BA
+namespace CustomBA
 {
     using System;
     using System.Collections.Generic;

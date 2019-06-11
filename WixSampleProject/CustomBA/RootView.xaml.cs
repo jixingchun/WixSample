@@ -1,26 +1,38 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-
-namespace CustomBA
+﻿namespace CustomBA
 {
+    using System.Windows;
+    using System.Windows.Input;
+    using System.Windows.Interop;
+
     /// <summary>
     /// RootView.xaml 的交互逻辑
     /// </summary>
     public partial class RootView : Window
     {
-        public RootView()
+        /// <summary>
+        /// Creates the view populated with it's model.
+        /// </summary>
+        /// <param name="viewModel">Model for the view.</param>
+        public RootView(RootViewModel viewModel)
         {
-            InitializeComponent();
+            this.DataContext = viewModel;
+
+            this.Loaded += (sender, e) => WixBA.Model.Engine.CloseSplashScreen();
+            this.Closed += (sender, e) => this.Dispatcher.InvokeShutdown(); // shutdown dispatcher when the window is closed.
+
+            this.InitializeComponent();
+
+            viewModel.ViewWindowHandle = new WindowInteropHelper(this).EnsureHandle();
+        }
+
+        /// <summary>
+        /// Allows the user to drag the window around by grabbing the background rectangle.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Background_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            this.DragMove();
         }
     }
 }
