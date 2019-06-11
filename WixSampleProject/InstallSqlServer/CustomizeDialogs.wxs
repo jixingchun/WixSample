@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi"
+     xmlns:util="http://schemas.microsoft.com/wix/UtilExtension">
+
+
+	<Fragment Id="FragmentUI">
+
+    <UI>
+      <Dialog Id="CustomLicenseDlg" Width="370" Height="270" Title="!(loc.LicenseAgreementDlg_Title)">
+        <Control Id="BannerBitmap" Type="Bitmap" X="0" Y="0" Width="370" Height="44" TabSkip="no" Text="!(loc.LicenseAgreementDlgBannerBitmap)" />
+        <Control Id="BannerLine" Type="Line" X="0" Y="44" Width="370" Height="0" />
+        <Control Id="BottomLine" Type="Line" X="0" Y="234" Width="370" Height="0" />
+        <Control Id="Description" Type="Text" X="25" Y="23" Width="340" Height="15" Transparent="yes" NoPrefix="yes" Text="!(loc.LicenseAgreementDlgDescription)" />
+        <Control Id="Title" Type="Text" X="15" Y="6" Width="200" Height="15" Transparent="yes" NoPrefix="yes" Text="!(loc.LicenseAgreementDlgTitle)" />
+        <Control Id="LicenseAcceptedCheckBox" Type="CheckBox" X="20" Y="207" Width="330" Height="18" CheckBoxValue="1" Property="LicenseAccepted" Text="!(loc.LicenseAgreementDlgLicenseAcceptedCheckBox)" />
+        <Control Id="Print" Type="PushButton" X="112" Y="243" Width="56" Height="17" Text="!(loc.WixUIPrint)">
+          <Publish Event="DoAction" Value="WixUIPrintEula">1</Publish>
+        </Control>
+        <Control Id="Back" Type="PushButton" X="180" Y="243" Width="56" Height="17" Text="!(loc.WixUIBack)" />
+        <Control Id="Next" Type="PushButton" X="236" Y="243" Width="56" Height="17" Default="yes" Text="!(loc.WixUINext)">
+          <Publish Event="SpawnWaitDialog" Value="WaitForCostingDlg">!(wix.WixUICostingPopupOptOut) OR CostingComplete = 1</Publish>
+          <Condition Action="disable"><![CDATA[LicenseAccepted <> "1"]]></Condition>
+          <Condition Action="enable">LicenseAccepted = "1"</Condition>
+        </Control>
+        <Control Id="Cancel" Type="PushButton" X="304" Y="243" Width="56" Height="17" Cancel="yes" Text="!(loc.WixUICancel)">
+          <Publish Event="SpawnDialog" Value="CancelDlg">1</Publish>
+        </Control>
+        <Control Id="TextArea" Type="ScrollableText" X="5" Y="50" Width="360" Height="140" Sunken="yes" TabSkip="no">
+          <!--<Text SourceFile="!(wix.WixUILicenseRtf=$(var.licenseRtf))" />-->
+          <Text SourceFile="!(loc.LicenseRtf)" />
+          <!--<Text>{\rtf1\ansi\ansicpg1252\deff0\deftab720 
+            {\fonttbl{\f0\froman\fprq2 Times New Roman;}} 
+            {\colortbl\red0\green0\blue0;} 
+            \deflang1033\horzdoc{\*\fchars }{\*\lchars } 
+            \pard\plain\f0\fs20 
+            !(loc.License_Agreement)\par 
+            }</Text>-->
+        </Control>
+      </Dialog>
+    </UI>
+
+    <UI>
+      <Dialog Id="CustomExitDialog" Width="370" Height="270" Title="!(loc.ExitDialog_Title)">
+        <Control Id="Finish" Type="PushButton" X="236" Y="243" Width="56" Height="17" Default="yes" Cancel="yes" Text="!(loc.WixUIFinish)" />
+        <Control Id="Cancel" Type="PushButton" X="304" Y="243" Width="56" Height="17" Disabled="yes" Text="!(loc.WixUICancel)" />
+        <!--<Control Id="Bitmap" Type="Bitmap" X="0" Y="0" Width="123" Height="234" TabSkip="no" Text="ExitDialogBackBmp" />-->
+        <Control Id="Back" Type="PushButton" X="180" Y="243" Width="56" Height="17" Disabled="yes" Text="!(loc.WixUIBack)" />
+        <Control Id="BottomLine" Type="Line" X="0" Y="234" Width="370" Height="0" />
+        <Control Id="Description" Type="Text" X="135" Y="70" Width="220" Height="40" Transparent="yes" NoPrefix="yes" Text="!(loc.ExitDialogDescription)" />
+        <Control Id="Title" Type="Text" X="135" Y="20" Width="220" Height="60" Transparent="yes" NoPrefix="yes" Text="!(loc.ExitDialogTitle)" />
+        
+        <Control Id="OptionalText" Type="Text" X="135" Y="110" Width="220" Height="80" Transparent="yes" NoPrefix="yes" Hidden="yes" Text="!(loc.ThanksUsing)">
+          <Condition Action="show">
+            <![CDATA[WIXUI_EXITDIALOGOPTIONALTEXT <> "" AND NOT Installed]]>
+          </Condition>
+        </Control>
+        <Control Id="OptionalCheckBox" Type="CheckBox" X="135" Y="190" Width="220" Height="14" Hidden="yes" Property="WIXUI_EXITDIALOGOPTIONALCHECKBOX_INSTALL" CheckBoxValue="1" Text="!(loc.StartUp)">
+          <Condition Action="show">
+            <![CDATA[WIXUI_EXITDIALOGOPTIONALCHECKBOXTEXT <> "" AND NOT Installed]]>
+          </Condition>
+        </Control>
+
+        <Control Id="InstallSQLCheckBox" Type="CheckBox" X="135" Y="170" Width="220" Height="14" Hidden="yes" Property="WIXUI_EXITDIALOGOPTIONALCHECKBOX_SQL" CheckBoxValue="1" Text="!(loc.ExitDialogInstallSQLText)" >
+          <Condition Action="show">
+            <![CDATA[IS_INSTALL_SQL = "1" AND NOT Installed AND HAS_SQLSERVER_DATASOURCE = "1"]]>
+          </Condition>
+        </Control>
+      </Dialog>
+
+      <InstallUISequence>
+        <Show Dialog="CustomExitDialog" OnExit="success" Overridable="yes" />
+      </InstallUISequence>
+
+      <AdminUISequence>
+        <Show Dialog="CustomExitDialog" OnExit="success" Overridable="yes" />
+      </AdminUISequence>
+    </UI>
+
+    <!--<UIRef Id="WixUI_Common" />
+    <UIRef Id="WixUI_ErrorProgressText" />-->
+    
+    <!--用于传递WPF安装包自定义路径-->
+    <Property Id="WIXUI_INSTALLDIR" Value="INSTALLFOLDER" />
+
+
+    <Property Id="WIXUI_EXITDIALOGOPTIONALCHECKBOX_SQL" Value="1" />
+    <Property Id="WIXUI_EXITDIALOGOPTIONALCHECKBOX_INSTALL" Value="1" />
+
+    <Property Id="WIXUI_EXITDIALOGOPTIONALTEXT" Value="XXXXXXXXXXXXX" />
+    <Property Id="WIXUI_EXITDIALOGOPTIONALCHECKBOXTEXT" Value="YYYYYYYYYYYYY" />
+  </Fragment>
+</Wix>

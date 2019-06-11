@@ -8,6 +8,7 @@ namespace CustomBA
     using System.Windows;
     using System.Windows.Input;
     using Microsoft.Tools.WindowsInstallerXml.Bootstrapper;
+    using WinForm = System.Windows.Forms;
 
     /// <summary>
     /// The errors returned from the engine
@@ -24,6 +25,7 @@ namespace CustomBA
     {
         private ICommand cancelCommand;
         private ICommand closeCommand;
+        private ICommand selectInstallDirectoryCommand;
 
         private bool canceled;
         private InstallationState installState;
@@ -37,6 +39,9 @@ namespace CustomBA
             this.InstallationViewModel = new InstallationViewModel(this);
             this.ProgressViewModel = new ProgressViewModel(this);
             this.UpdateViewModel = new UpdateViewModel(this);
+
+            // 默认安装目录为 “C:\Program Files (x86)”
+            this.InstallDirectory = WixBA.Model.Engine.StringVariables["ProgramFilesFolder"];
         }
 
         public InstallationViewModel InstallationViewModel { get; private set; }
@@ -76,6 +81,38 @@ namespace CustomBA
                 return this.cancelCommand;
             }
         }
+
+        public ICommand SelectInstallDirectoryCommand
+        {
+            get
+            {
+                if (this.selectInstallDirectoryCommand == null)
+                {
+                    this.selectInstallDirectoryCommand = new RelayCommand(param =>
+                    {
+                        WinForm.FolderBrowserDialog folderBrowserDialog = new WinForm.FolderBrowserDialog();
+                        if (folderBrowserDialog.ShowDialog() == WinForm.DialogResult.OK)
+                        {
+                            this.InstallDirectory = folderBrowserDialog.SelectedPath;
+                        }
+                    },
+                    param =>
+                    {
+                        return this.InstallState != InstallationState.Applying;
+                    }
+
+                    );
+                }
+
+                return this.selectInstallDirectoryCommand;
+            }
+        }
+
+        public bool SelectInstallDirectoryEnabled
+        {
+            get { return this.SelectInstallDirectoryCommand.CanExecute(this); }
+        }
+
 
         public bool CancelEnabled
         {

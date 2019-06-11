@@ -28,12 +28,27 @@ namespace CustomBA
 
             WixBA.Model.Bootstrapper.ExecuteMsiMessage += this.ExecuteMsiMessage;
             WixBA.Model.Bootstrapper.ExecuteProgress += this.ApplyExecuteProgress;
+
+            WixBA.Model.Bootstrapper.ExecuteComplete += Bootstrapper_ExecuteComplete;
+
             WixBA.Model.Bootstrapper.PlanBegin += this.PlanBegin;
             WixBA.Model.Bootstrapper.PlanPackageComplete += this.PlanPackageComplete;
             WixBA.Model.Bootstrapper.ApplyPhaseCount += this.ApplyPhaseCount;
             WixBA.Model.Bootstrapper.Progress += this.ApplyProgress;
             WixBA.Model.Bootstrapper.CacheAcquireProgress += this.CacheAcquireProgress;
             WixBA.Model.Bootstrapper.CacheComplete += this.CacheComplete;
+        }
+
+        private void Bootstrapper_ExecuteComplete(object sender, ExecuteCompleteEventArgs e)
+        {
+            if (Hresult.Succeeded(e.Status))
+            {
+                Message = "Complete successful!";
+            }
+            else
+            {
+                Message = "Complete failed!";
+            }
         }
 
         public bool ProgressEnabled

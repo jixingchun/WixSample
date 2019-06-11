@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WixLocalization Culture="en-us" Codepage="1252" xmlns="http://schemas.microsoft.com/wix/2006/localization">
+  
+  <String Id="Lang">1033</String>
+  <String Id="Code">1252</String>
+  
+  <String Id="AppShortcutName">MyApp</String>
+  <String Id="AppShortcutNameDescription">This is app's descrption</String>
+
+
+  
+  <String Id="UninstallName">Uninstall</String>
+  <String Id="UninstallNameDescription">This is uninstall descrption</String>
+  
+  <String Id="LicenseRtf">License\license_en.rtf</String>
+
+
+
+
+
+
+
+  <!--<String Id="Lang">1033</String>
+  <String Id="Code">1252</String>-->
+  <String Id="NeedNet">You need install .NET Framework 4.0 or higher version</String>
+  <String Id="StartUp">Start DIAView</String>
+  <String Id="ThanksUsing">Thank you for using DIAView</String>
+  <String Id="RunShortcut">Runtime Environment</String>
+  <String Id="RunShortcut1">Runtime Environment</String>
+  <String Id="DevShortcut">Development Environment</String>
+  <String Id="DevShortcut1">Development Environment</String>
+  <String Id="ServerManagerShortcut">DIAView ServerManager</String>
+  <String Id="ServerManagerShortcut1">DIAView ServerManager</String>
+  <String Id="UnstallTxt">Uninstall</String>
+  <String Id="HelpTxt">Help document</String>
+  <!--<String Id="LicenseRtf">License\license_en.rtf</String>-->
+  <String Id="NewerVersionInstalledd">The same or higher version of the DIAVIEW has been installed!</String>
+
+
+  <String Id="ProgressTextCheckSQLStatus" Overridable="yes">The SQL Server installation information is being detected.</String>
+  <String Id="ExitDialogInstallSQLText" Overridable="yes">Install SQL Server 2008 R2 Express (en-US)</String>
+  <String Id="ProgressTextRegisterOPC" Overridable="yes">Registration of OPC services.</String>
+  <String Id="ProgressTextConfigDIAView" Overridable="yes">Configuring the DIAView.</String>
+  <String Id="ProgressTextAddDemo" Overridable="yes">Adding Demo Items.</String>
+  <String Id="ProgressTextAddUserProject" Overridable="yes">Adding project items.</String>
+  
+  
+  
+
+  
+</WixLocalization>

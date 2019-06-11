@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+	<Fragment>
+		<!-- TODO: Put your code here. -->
+    <DirectoryRef Id="SetupFolder">
+      <Component Id="C.70000001" Guid="{a8bdc3a6-195d-481f-b975-3d01c3edcf6a}">
+        <File Id="F.70000001" Source="PackageResource\App.txt" />
+        <RemoveFolder Id="RF.70000001" On="uninstall" />
+      </Component>
+
+      <Component Id="C.70000002" Guid="{a8bdc3a6-195d-481f-b975-3d01c3edcf6b}">
+        <File Id="F.70000002" Source="PackageResource\Text1.txt" />
+        <RemoveFolder Id="RF.70000002" On="uninstall" />
+      </Component>
+
+      <Component Id="C.70000003" Guid="{a8bdc3a6-195d-481f-b975-3d01c3edcf6c}">
+        <File Id="F.70000003" Source="PackageResource\Text2.txt" />
+        <RemoveFolder Id="RF.70000003" On="uninstall" />
+      </Component>
+    </DirectoryRef>
+
+    <ComponentGroup Id="C.InstallFilesComponentGroupId">
+      <ComponentRef Id="C.70000001"/>
+      <ComponentRef Id="C.70000002"/>
+      <ComponentRef Id="C.70000003"/>
+    </ComponentGroup>
+	</Fragment>
+</Wix>

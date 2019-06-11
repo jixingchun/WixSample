@@ -149,7 +149,11 @@ namespace CustomBA
             {
                 if (this.completeCommand == null)
                 {
-                    this.completeCommand = new RelayCommand(param => WixBA.LaunchUrl(WixDistribution.VSExtensionsLandingUrl), param => true);
+                    this.completeCommand = new RelayCommand(param =>
+                    {
+                        Message = "ÒÑÍê³É";
+                    }, 
+                    param => true);
                 }
 
                 return this.completeCommand;

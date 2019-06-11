@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi"
+     xmlns:util="http://schemas.microsoft.com/wix/UtilExtension">
+
+  <?include AppVariables.wxi?>
+  
+  <Fragment>
+
+    <!--定义开始菜单栏快捷方式文件夹-->
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="ProgramFilesFolder">
+        <Directory Id="INSTALLFOLDER">
+          <Directory Id="SetupFolder" Name="$(var.ProductName)" />
+        </Directory>
+      </Directory>
+
+      <Directory Id="SystemFolder" />
+
+      <Directory Id="PersonalFolder">
+        <Directory Id="MyPersonalFolderId" Name="MyPersonalFolder" />
+      </Directory>
+
+      <!--定义开始菜单栏快捷方式文件夹-->
+      <Directory Id="ProgramMenuFolder">
+        <Directory Id="ApplicationProgramsFolder" Name="$(var.ProductName)" />
+      </Directory>
+      <!--桌面快捷方式文件夹-->
+      <Directory Id="DesktopFolder" Name="Desktop" />
+    </Directory>
+
+    <!--<DirectoryRef Id="INSTALLFOLDER">
+      <Component Id="C.CreateSetupFloder" Guid="32E67E8A-EC27-493D-8B82-71BE46D8C52A">
+        --><!--管理员权限--><!--
+        <CreateFolder Directory="SetupFolder">
+          <util:PermissionEx User="SYSTEM" GenericAll="yes" />
+          <util:PermissionEx User="Everyone" GenericAll="yes" />
+          <util:PermissionEx User="Administrators" GenericAll="yes" />
+          <util:PermissionEx User="Users" Domain="[MachineName]" GenericAll="yes" />
+        </CreateFolder>
+        
+        
+
+        <RemoveFolder Id="RemoveINSTALLFOLDER" On="uninstall"/>
+
+      </Component>
+    </DirectoryRef>-->
+
+    <DirectoryRef Id="MyPersonalFolderId">
+      <Component Id="C.MyPersonalFolder" Guid="32E67E8A-EC27-493D-8B82-71BE46D8C52B">
+        
+        <RegistryKey  Root="HKCU" Key="$(var.RegistKeyRoot)\PersonalFolder">
+          <RegistryValue Type="string" Name="InstallPath" Value="[PersonalFolder]\MyPersonalFolder" KeyPath="yes" />
+        </RegistryKey>
+        
+        <RemoveFolder Id="RemoveMyPersonalFolderId" On="uninstall"/>
+
+      </Component>
+    </DirectoryRef>
+
+    <ComponentGroup Id="C.CommonComponentGroupId">
+      <ComponentRef Id="C.CreateSetupFloder"/>
+      <ComponentRef Id="C.MyPersonalFolder"/>
+      
+    </ComponentGroup>
+
+
+
+
+    <PropertyRef Id="WIX_ACCOUNT_LOCALSYSTEM" />
+    <PropertyRef Id="WIX_ACCOUNT_USERS" />
+    
+    
+    
+
+    <DirectoryRef Id="SetupFolder">
+      <Component Id="C.CreateSetupFloder" Guid="32E67E8A-EC27-493D-8B82-71BE46D8C52A">
+
+
+         <!--管理员权限-->
+    
+        <CreateFolder Directory="SetupFolder">
+          <Permission GenericAll="yes" User="[WIX_ACCOUNT_LOCALSYSTEM]" />
+          <Permission GenericRead="yes" GenericExecute="yes" User="[WIX_ACCOUNT_USERS]" />
+        </CreateFolder>
+        
+        
+
+        <RemoveFolder Id="RemoveINSTALLFOLDER" On="uninstall"/>
+
+      </Component>
+    </DirectoryRef>
+    
+  </Fragment>
+</Wix>
