@@ -54,6 +54,7 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CustomAction.cs" />
     <Compile Include="CustomBootstrapperApplication.cs" />
     <Compile Include="Hresult.cs" />
     <Compile Include="InstallationViewModel.cs" />

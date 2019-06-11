@@ -20,6 +20,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Bundle.wxs" />
+    <Compile Include="PackageGroup\SqlServerPackageGroup.wxs" />
+    <Compile Include="PackageGroup\SamplePackageGroup.wxs" />
+    <Compile Include="PackageGroup\DIAViewCorePackageGroup.wxs" />
   </ItemGroup>
   <ItemGroup>
     <WixExtension Include="WixUIExtension">

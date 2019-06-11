@@ -53,26 +53,11 @@
     <Chain>
 
       <!--<PackageGroupRef Id='NetFx40Redist' />-->
+
       
-      <MsiPackage SourceFile="D:\study\github_online\WixSample\WixSampleProject\SetupProject\bin\Debug\en-us\SetupProject.msi"
-          Compressed="no"
-          ForcePerMachine="yes"
-          Cache="no"         
-          Permanent="no"
-          Vital="yes"
-          DisplayInternalUI="no">
-        <MsiProperty Name="INSTALLFOLDER" Value="[InstallFolder]"/>
+      <!--<PackageGroupRef Id="DIAViewCorePackageGroup" />-->
 
-      </MsiPackage>
-
-      <MsiPackage SourceFile="D:\study\github_online\WixSample\WixSampleProject\SetupProject2\bin\Debug\SetupProject2.msi"
-          Compressed="no"
-          ForcePerMachine="yes"
-          Cache="no"
-          Permanent="no"
-          Vital="yes"
-          DisplayInternalUI="no">
-      </MsiPackage>
+      <PackageGroupRef Id="SqlServerPackageGroup" />
 
     </Chain>
 

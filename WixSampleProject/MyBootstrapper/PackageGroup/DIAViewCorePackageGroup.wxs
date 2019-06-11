@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi"
+     xmlns:util="http://schemas.microsoft.com/wix/UtilExtension">
+  
+  <Fragment>
+      <PackageGroup Id="DIAViewCorePackageGroup">
+        <!-- 安装运行时 -->
+        <MsiPackage Id="DIAViewSetup.msi"
+          SourceFile="D:\MSI\DIAViewSetup\DIAView\DIAViewSetup.msi" Compressed="no"
+          ForcePerMachine="yes"
+          Permanent="no"
+          Vital="yes"
+          DisplayInternalUI="no">
+          <MsiProperty Name="INSTALLFOLDER" Value="[InstallFolder]" />
+        </MsiPackage>
+
+        <!-- 安装用户工程 -->
+        <MsiPackage Id="UserProjectMsi.msi"
+          SourceFile="D:\MSI\DIAViewSetup\DIAView\UserProjectMsi.msi"
+          Compressed="no"
+          ForcePerMachine="yes"
+          Permanent="no"
+          Vital="yes"
+          DisplayInternalUI="no">
+        </MsiPackage>
+
+      </PackageGroup>
+
+  </Fragment>
+</Wix>

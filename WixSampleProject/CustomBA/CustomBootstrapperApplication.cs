@@ -122,14 +122,15 @@ namespace CustomBA
         /// </summary>
         protected override void Run()
         {
-            WriteLog("Run");
-
-
             this.Engine.Log(LogLevel.Verbose, "Running the WiX BA.");
             WixBA.Model = new Model(this);
             WixBA.Dispatcher = Threading.Dispatcher.CurrentDispatcher;
             RootViewModel viewModel = new RootViewModel();
 
+            CustomAction customAction = new CustomAction();
+            bool isNeedInstallSqlServer = customAction.IsNeedInstallSqlServer();
+            viewModel.IsNeedInstallSqlServer = isNeedInstallSqlServer;
+            
             // Kick off detect which will populate the view models.
             this.Engine.Detect();
 
@@ -192,13 +193,6 @@ namespace CustomBA
             catch (WebException)
             {
             }
-        }
-
-
-        private void WriteLog(string log)
-        {
-            log = DateTime.Now.ToLongTimeString() + log + System.Environment.NewLine;
-            File.AppendAllText(@"D:\log.txt", log, Encoding.UTF8);
         }
     }
 }

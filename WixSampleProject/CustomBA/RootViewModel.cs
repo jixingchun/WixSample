@@ -207,5 +207,66 @@ namespace CustomBA
                 }
             }
         }
+
+        bool isNeedInstallSqlServer = false;
+
+        /// <summary>
+        /// 是否需要安装Sql server
+        /// </summary>
+        public bool IsNeedInstallSqlServer
+        {
+            get
+            {
+                bool flag = false;
+                bool.TryParse(WixBA.Model.IsNeedInstallSqlServer, out flag);
+                return flag;
+
+                //try
+                //{
+                //    bool flag = false;
+                //    bool.TryParse(WixBA.Model.IsNeedInstallSqlServer, out flag);
+                //    return flag;
+                //}
+                //catch (Exception ex)
+                //{
+                //    WixBA.Model.Engine.Log(LogLevel.Verbose, ex.ToString());
+                //    return false;
+                //}
+            }
+
+            set
+            {
+
+                if (this.isNeedInstallSqlServer != value)
+                {
+                    isNeedInstallSqlServer = value;
+                    WixBA.Model.IsNeedInstallSqlServer = Convert.ToString(value);
+                    base.OnPropertyChanged("IsNeedInstallSqlServer");
+                }
+
+                //try
+                //{
+                //    if (this.isNeedInstallSqlServer != value)
+                //    {
+                //        isNeedInstallSqlServer = value;
+                //        WixBA.Model.IsNeedInstallSqlServer = value.ToString();
+                //        base.OnPropertyChanged("IsNeedInstallSqlServer");
+                //    }
+                //}
+                //catch(Exception ex)
+                //{
+                //    WixBA.Model.Engine.Log(LogLevel.Verbose, ex.ToString());
+                //}
+
+            }
+        }
+
+        //public string Title
+        //{
+        //    get
+        //    {
+        //        return InstallationViewModel.Title;
+        //    }
+        //}
     }
 }

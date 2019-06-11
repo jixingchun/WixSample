@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi"
+     xmlns:util="http://schemas.microsoft.com/wix/UtilExtension">
+  
+  <Fragment>
+
+      <?define SqlServerInstance=SQLEXPRESS ?>
+    
+      <!--<?define SqlInstallCommand=/ACTION=Install /Q /
+          IACCEPTSQLSERVERLICENSETERMS /FEATURES=SQLEngine /INSTANCENAME=$(var.SqlServerInstance) /SQLSYSADMINACCOUNTS=BUILTIN\Administrators /
+          SECURITYMODE=SQL /SAPWD=password1 ?>-->
+
+    <?define SqlInstallCommand=/QS /ACTION=Install /FEATURES=SQL,AS,RS,IS,Tools /INSTANCENAME=SQLEXPRESS /SQLSVCACCOUNT="SYSTEM" /SQLSYSADMINACCOUNTS="NT AUTHORITY\SYSTEM" /AGTSVCACCOUNT="NT AUTHORITY\Network Service" /IACCEPTSQLSERVERLICENSETERMS" ?>
+
+
+
+    <?define SqlUninstallCommand=/ACTION=Uninstall /Q /FEATURES=SQLEngine
+          /INSTANCENAME=$(var.SqlServerInstance) ?>
+
+      <util:RegistrySearch
+        Id="SqlInstanceFound"
+        Root="HKLM"
+        Key="SOFTWARE\Microsoft\Microsoft SQL Server\Instance Names\SQL"
+        Value="$(var.SqlServerInstance)"
+        Result="exists"
+        Variable="SqlInstanceFound" />
+    
+      <PackageGroup Id="SqlServerPackageGroup">
+
+        <ExePackage
+          Id="SQLSERVER64"
+          SourceFile="D:\MSI\DIAViewSetup\SQL\SQLEXPR_x64_ENU.exe"
+          
+          Name="SQLEXPR_x64_ENU.exe"
+          Compressed="no"
+          DetectCondition="NOT IsNeedInstallSqlServer"
+          InstallCondition="IsNeedInstallSqlServer AND VersionNT64"
+          InstallCommand="$(var.SqlInstallCommand)"
+          UninstallCommand="$(var.SqlUninstallCommand)"
+          Vital="no"
+          Permanent="yes" >
+
+        </ExePackage>
+
+        <ExePackage
+          Id="SQLSERVER32"
+          SourceFile="D:\MSI\DIAViewSetup\SQL\SQLEXPR_x86_ENU.exe"
+          
+          Name="SQLEXPR_x86_ENU.exe"
+          Compressed="no"
+          DetectCondition="NOT IsNeedInstallSqlServer"
+          InstallCondition="IsNeedInstallSqlServer AND VersionNT64"
+          InstallCommand="$(var.SqlInstallCommand) AND (Not VersionNT64)"
+          UninstallCommand="$(var.SqlUninstallCommand)"
+          Vital="no"
+          Permanent="yes" >
+
+        </ExePackage>
+
+      </PackageGroup>
+
+  </Fragment>
+</Wix>

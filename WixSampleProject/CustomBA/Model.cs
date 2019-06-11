@@ -19,6 +19,8 @@ namespace CustomBA
         private const string BurnBundleLayoutDirectoryVariable = "WixBundleLayoutDirectory";
         private const string BurnBundleVersionVariable = "WixBundleVersion";
 
+        private const string IsNeedInstallSqlServerVariable = "IsNeedInstallSqlServer";
+
         /// <summary>
         /// Creates a new model for the UX.
         /// </summary>
@@ -125,6 +127,28 @@ namespace CustomBA
             request.UserAgent = String.Concat("WixInstall", this.Version.ToString());
 
             return request;
+        }
+
+
+        /// <summary>
+        /// 是否需要安装Sql server
+        /// </summary>
+        public string IsNeedInstallSqlServer
+        {
+            get
+            {
+                if (!this.Engine.StringVariables.Contains(IsNeedInstallSqlServerVariable))
+                {
+                    return null;
+                }
+
+                return this.Engine.StringVariables[IsNeedInstallSqlServerVariable];
+            }
+
+            set
+            {
+                this.Engine.StringVariables[IsNeedInstallSqlServerVariable] = value;
+            }
         }
     }
 }

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi"
+     xmlns:util="http://schemas.microsoft.com/wix/UtilExtension">
+  
+  <Fragment>
+      <PackageGroup Id="SamplePackageGroup">
+        
+        <MsiPackage SourceFile="D:\study\github_online\WixSample\WixSampleProject\SetupProject\bin\Debug\en-us\SetupProject.msi"
+            Compressed="no"
+            ForcePerMachine="yes"
+            Cache="no"
+            Permanent="no"
+            Vital="yes"
+            DisplayInternalUI="no">
+          <MsiProperty Name="INSTALLFOLDER" Value="[InstallFolder]"/>
+
+        </MsiPackage>
+
+        <MsiPackage SourceFile="D:\study\github_online\WixSample\WixSampleProject\SetupProject2\bin\Debug\SetupProject2.msi"
+            Compressed="no"
+            ForcePerMachine="yes"
+            Cache="no"
+            Permanent="no"
+            Vital="yes"
+            DisplayInternalUI="no">
+        </MsiPackage>
+
+      </PackageGroup>
+
+  </Fragment>
+</Wix>
