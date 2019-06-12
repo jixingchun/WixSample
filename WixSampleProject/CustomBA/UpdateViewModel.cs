@@ -8,7 +8,6 @@ namespace CustomBA
     using System.Windows.Input;
     using System.Xml;
     using Microsoft.Tools.WindowsInstallerXml.Bootstrapper;
-    using Bootstrapper = Microsoft.Tools.WindowsInstallerXml.Bootstrapper;
 
     /// <summary>
     /// The states of the update view model.
@@ -129,8 +128,11 @@ namespace CustomBA
             }
         }
 
-        private void DetectUpdateBegin(object sender, Bootstrapper.DetectUpdateBeginEventArgs e)
+        private void DetectUpdateBegin(object sender, DetectUpdateBeginEventArgs e)
         {
+            WixBA.Model.Engine.Log(LogLevel.Verbose, $"DetectUpdateBegin: UpdateLocation= {e.UpdateLocation}, Result = {e.Result}");
+
+
             // Don't check for updates if:
             //   the first check failed (no retry)
             //   if we are being run as an uninstall
@@ -142,8 +144,11 @@ namespace CustomBA
             }
         }
         
-        private void DetectUpdate(object sender, Bootstrapper.DetectUpdateEventArgs e)
+        private void DetectUpdate(object sender, DetectUpdateEventArgs e)
         {
+
+            WixBA.Model.Engine.Log(LogLevel.Verbose, $"DetectUpdate: UpdateLocation= {e.UpdateLocation}, Result = {e.Result}");
+
             // The list of updates is sorted in descending version, so the first callback should be the largest update available.
             // This update should be either larger than ours (so we are out of date), the same as ours (so we are current)
             // or smaller than ours (we have a private build). If we really wanted to, we could leave the e.Result alone and
@@ -162,8 +167,11 @@ namespace CustomBA
             }
         }
 
-        private void DetectUpdateComplete(object sender, Bootstrapper.DetectUpdateCompleteEventArgs e)
+        private void DetectUpdateComplete(object sender, DetectUpdateCompleteEventArgs e)
         {
+            WixBA.Model.Engine.Log(LogLevel.Verbose, $"DetectUpdateComplete: UpdateLocation= {e.UpdateLocation}");
+
+
             // Failed to process an update, re-queue a detect to allow the existing bundle to still install.
             if ((UpdateState.Failed != this.State) && !Hresult.Succeeded(e.Status))
             {

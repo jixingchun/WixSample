@@ -6,7 +6,8 @@
       <PackageGroup Id="DIAViewCorePackageGroup">
         <!-- 安装运行时 -->
         <MsiPackage Id="DIAViewSetup.msi"
-          SourceFile="D:\MSI\DIAViewSetup\DIAView\DIAViewSetup.msi" Compressed="no"
+          SourceFile="C:\Users\xingchun.ji\AppData\Local\Temp\DiaviewPack\OutputMSI\DIAView\en-us\DIAViewSetup.msi"
+          Compressed="no"
           ForcePerMachine="yes"
           Permanent="no"
           Vital="yes"
@@ -16,8 +17,8 @@
 
         <!-- 安装用户工程 -->
         <MsiPackage Id="UserProjectMsi.msi"
-          SourceFile="D:\MSI\DIAViewSetup\DIAView\UserProjectMsi.msi"
-          Compressed="no"
+          SourceFile="C:\Users\xingchun.ji\AppData\Local\Temp\DiaviewPack\OutputMSI\DIAView\en-us\UserProjectSetup.msi"
+          Compressed="yes"
           ForcePerMachine="yes"
           Permanent="no"
           Vital="yes"

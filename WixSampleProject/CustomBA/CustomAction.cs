@@ -58,6 +58,9 @@ namespace CustomBA
                 ? RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry64)
                 : RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry32);
 
+
+            WriteLog($"RegistryKey is {rk.Name}");
+
             var rkNames = rk.OpenSubKey(@"SOFTWARE\Microsoft\Microsoft SQL Server\Instance Names\SQL");
             if (rkNames != null)
             {
@@ -106,7 +109,7 @@ namespace CustomBA
             else
             {
                 //当前机器未安装Sql server
-                WriteLog($"Sqlserver is not installed on the machine ");
+                WriteLog($"RegistryKey is {rk.ToString()} is not found, ==>  Sqlserver is not installed on the machine ");
 
                 return true;
             }

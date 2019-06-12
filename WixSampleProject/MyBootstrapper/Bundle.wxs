@@ -22,7 +22,6 @@
       <Payload SourceFile="D:\study\github_online\WixSample\WixSampleProject\BA\bin\Debug\WixBA.BootstrapperCore.config" />-->
 
       
-      <Payload SourceFile="D:\work\Source\Common\Trial\Xingchun.ji\ProjectPack\ProjectPack.RuntimeMsiSetup\WixResources\License\license_zh-CN.rtf" />
       <Payload SourceFile="D:\study\github_online\WixSample\WixSampleProject\CustomBA\bin\Debug\CustomBA.dll" />
       <Payload SourceFile="D:\study\github_online\WixSample\WixSampleProject\CustomBA\bin\Debug\BootstrapperCore.config" />
 
@@ -55,7 +54,7 @@
       <!--<PackageGroupRef Id='NetFx40Redist' />-->
 
       
-      <!--<PackageGroupRef Id="DIAViewCorePackageGroup" />-->
+      <PackageGroupRef Id="DIAViewCorePackageGroup" />
 
       <PackageGroupRef Id="SqlServerPackageGroup" />
 

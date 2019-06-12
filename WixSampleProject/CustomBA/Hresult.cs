@@ -1,5 +1,3 @@
-
-
 namespace CustomBA
 {
     using System;

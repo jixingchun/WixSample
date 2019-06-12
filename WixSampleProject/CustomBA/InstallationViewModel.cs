@@ -415,12 +415,16 @@ namespace CustomBA
 
         private void DetectBegin(object sender, DetectBeginEventArgs e)
         {
+            WixBA.Model.Engine.Log(LogLevel.Verbose, $"DetectBegin: Installed= {e.Installed}, PackageCount ={e.PackageCount}, Result = {e.Result}");
+
             this.root.DetectState = e.Installed ? DetectionState.Present : DetectionState.Absent;
             WixBA.Model.PlannedAction = LaunchAction.Unknown;
         }
 
         private void DetectedRelatedBundle(object sender, DetectRelatedBundleEventArgs e)
         {
+            WixBA.Model.Engine.Log(LogLevel.Verbose, $"DetectedRelatedBundle: Operation= {e.Operation.ToString()}, ProductCode ={e.ProductCode}, RelationType = {e.RelationType}");
+
             if (e.Operation == RelatedOperation.Downgrade)
             {
                 this.Downgrade = true;
@@ -429,6 +433,8 @@ namespace CustomBA
 
         private void DetectComplete(object sender, DetectCompleteEventArgs e)
         {
+            WixBA.Model.Engine.Log(LogLevel.Verbose, $"DetectComplete: Status= {e.Status.ToString()}");
+
             // Parse the command line string before any planning.
             this.ParseCommandLine();
             this.root.InstallState = InstallationState.Waiting;
@@ -469,6 +475,8 @@ namespace CustomBA
 
         private void PlanPackageBegin(object sender, PlanPackageBeginEventArgs e)
         {
+            WixBA.Model.Engine.Log(LogLevel.Verbose, $"PlanPackageBegin: PackageId= {e.PackageId}");
+
             if (WixBA.Model.Engine.StringVariables.Contains("MbaNetfxPackageId") 
                 && e.PackageId.Equals(WixBA.Model.Engine.StringVariables["MbaNetfxPackageId"], StringComparison.Ordinal))
             {
@@ -478,6 +486,8 @@ namespace CustomBA
 
         private void PlanComplete(object sender, PlanCompleteEventArgs e)
         {
+            WixBA.Model.Engine.Log(LogLevel.Verbose, $"PlanComplete: Status= {e.Status}");
+
             if (Hresult.Succeeded(e.Status))
             {
                 this.root.PreApplyState = this.root.InstallState;
@@ -492,27 +502,38 @@ namespace CustomBA
 
         private void ApplyBegin(object sender, ApplyBeginEventArgs e)
         {
+            WixBA.Model.Engine.Log(LogLevel.Verbose, $"ApplyBegin: Result= {e.Result}");
+
             this.downloadRetries.Clear();
         }
 
         private void CacheAcquireBegin(object sender, CacheAcquireBeginEventArgs e)
         {
+            WixBA.Model.Engine.Log(LogLevel.Verbose, $"CacheAcquireBegin: PayloadId= {e.PayloadId}, Source ={e.Source}, PackageOrContainerId = {e.PackageOrContainerId}, Operation = {e.Operation.ToString()}");
+
+
             this.cachePackageStart = DateTime.Now;
         }
 
         private void CacheAcquireComplete(object sender, CacheAcquireCompleteEventArgs e)
         {
+            WixBA.Model.Engine.Log(LogLevel.Verbose, $"CacheAcquireComplete: PayloadId= {e.PayloadId}, PackageOrContainerId = {e.PackageOrContainerId}, Result = {e.Result}");
+
             this.AddPackageTelemetry("Cache",
                 e.PackageOrContainerId ?? String.Empty, DateTime.Now.Subtract(this.cachePackageStart).TotalMilliseconds, e.Status);
         }
 
         private void ExecutePackageBegin(object sender, ExecutePackageBeginEventArgs e)
         {
+            WixBA.Model.Engine.Log(LogLevel.Verbose, $"ExecutePackageBegin: PackageId= {e.PackageId}, ShouldExecute = {e.ShouldExecute}, Result = {e.Result}");
+
             this.executePackageStart = e.ShouldExecute ? DateTime.Now : DateTime.MinValue;
         }
 
         private void ExecutePackageComplete(object sender, ExecutePackageCompleteEventArgs e)
         {
+            WixBA.Model.Engine.Log(LogLevel.Verbose, $"ExecutePackageComplete: PackageId= {e.PackageId}, Restart = {e.Restart.ToString()}, Result = {e.Result}");
+
             if (DateTime.MinValue < this.executePackageStart)
             {
                 this.AddPackageTelemetry("Execute",
@@ -523,6 +544,8 @@ namespace CustomBA
 
         private void ExecuteError(object sender, ErrorEventArgs e)
         {
+            WixBA.Model.Engine.Log(LogLevel.Verbose, $"ExecuteError: PackageId= {e.PackageId}, ErrorType = {e.ErrorType}, ErrorMessage = {e.ErrorMessage}, Result = {e.Result}");
+
             lock (this)
             {
                 if (!this.root.Canceled)
@@ -590,6 +613,8 @@ namespace CustomBA
 
         private void ResolveSource(object sender, ResolveSourceEventArgs e)
         {
+            WixBA.Model.Engine.Log(LogLevel.Verbose, $"ResolveSource: PayloadId= {e.PayloadId}, LocalSource = {e.LocalSource}, DownloadSource = {e.DownloadSource}, Result = {e.Result}");
+
             int retries = 0;
 
             this.downloadRetries.TryGetValue(e.PackageOrContainerId, out retries);
@@ -600,6 +625,9 @@ namespace CustomBA
 
         private void ApplyComplete(object sender, ApplyCompleteEventArgs e)
         {
+            WixBA.Model.Engine.Log(LogLevel.Verbose, $"ApplyComplete: Restart= {e.Restart.ToString()}, Status = {e.Status}, Result = {e.Result}");
+
+
             WixBA.Model.Result = e.Status; // remember the final result of the apply.
 
             // Set the state to applied or failed unless the state has already been set back to the preapply state
@@ -640,6 +668,10 @@ namespace CustomBA
         {
             // Get array of arguments based on the system parsing algorithm.
             string[] args = WixBA.Model.Command.GetCommandLineArgs();
+
+            WixBA.Model.Engine.Log(LogLevel.Verbose, $"ParseCommandLine: args= {string.Join("",args)}");
+
+
             for (int i = 0; i < args.Length; ++i)
             {
                 if (args[i].StartsWith("InstallFolder=", StringComparison.InvariantCultureIgnoreCase))
@@ -653,6 +685,9 @@ namespace CustomBA
 
         private void AddPackageTelemetry(string prefix, string id, double time, int result)
         {
+            WixBA.Model.Engine.Log(LogLevel.Verbose, $"AddPackageTelemetry: prefix= {prefix}, id = {id}, time = {time}, Result = {result}");
+
+
             lock (this)
             {
                 string key = String.Format("{0}Time_{1}", prefix, id);
