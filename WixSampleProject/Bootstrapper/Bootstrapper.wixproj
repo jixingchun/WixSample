@@ -31,6 +31,20 @@
       <Name>WixBalExtension</Name>
     </WixExtension>
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="LocalizationFile\WixBAUI_zh-CN.wxl" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="LocalizationFile" />
+    <Folder Include="License" />
+    <Folder Include="Images" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Images\diaapp.ico" />
+    <Content Include="License.rtf" />
+    <Content Include="License\license_zh-CN.rtf" />
+    <Resource Include="License\License.rtf" />
+  </ItemGroup>
   <Import Project="$(WixTargetsPath)" Condition=" '$(WixTargetsPath)' != '' " />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\WiX\v3.x\Wix.targets" Condition=" '$(WixTargetsPath)' == '' AND Exists('$(MSBuildExtensionsPath32)\Microsoft\WiX\v3.x\Wix.targets') " />
   <Target Name="EnsureWixToolsetInstalled" Condition=" '$(WixTargetsImported)' != 'true' ">

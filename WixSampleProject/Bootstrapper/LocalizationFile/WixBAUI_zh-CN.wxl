@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WixLocalization xmlns="http://schemas.microsoft.com/wix/2006/localization">
+  <String Id="Caption">安装 [WixBundleName]</String>
+  <String Id="Title">[WixBundleName]</String>
+  <String Id="ConfirmCancelMessage">你确定要取消吗?</String>
+  <String Id="HelpHeader">安装帮助</String>
+  <String Id="HelpText">
+    /install | /repair | /uninstall | /layout [directory] - 安装、修复、卸载或
+    在目录中创建包的完整本地副本。安装是默认设置。
+
+    /passive | /quiet -  displays minimal UI with no prompts or displays no UI and
+    no prompts. By default UI and all prompts are displayed.
+
+    /norestart   - suppress any attempts to restart. By default UI will prompt before restart.
+    /log log.txt - 指定日志输出文件。默认情况下，日志文件保存在%TEMP%目录中。
+  </String>
+  <String Id="HelpCloseButton">关闭</String>
+  <String Id="InstallAcceptCheckbox">本人同意授权条款及细则</String>
+  <String Id="InstallOptionsButton">选项</String>
+  <String Id="InstallInstallButton">安装</String>
+  <String Id="InstallCloseButton">关闭</String>
+  <String Id="OptionsHeader">安装选项</String>
+  <String Id="OptionsLocationLabel">安装目录 (不推荐使用磁盘根目录):</String>
+  <String Id="OptionsBrowseButton">浏览</String>
+  <String Id="OptionsOkButton">确定</String>
+  <String Id="OptionsCancelButton">取消</String>
+  <String Id="ProgressHeader">安装进度</String>
+  <String Id="ProgressLabel">Processing:</String>
+  <String Id="OverallProgressPackageText">初始化...</String>
+  <String Id="ProgressCancelButton">取消</String>
+  <String Id="ModifyHeader">Modify Setup</String>
+  <String Id="ModifyRepairButton">修复</String>
+  <String Id="ModifyUninstallButton">卸载</String>
+  <String Id="ModifyCloseButton">关闭</String>
+  <String Id="SuccessHeader">安装成功</String>
+  <String Id="SuccessLaunchButton">启动</String>
+  <String Id="SuccessRestartText">你必须重新启动你的电脑才能使用这个软件。</String>
+  <String Id="SuccessRestartButton">重启</String>
+  <String Id="SuccessCloseButton">关闭</String>
+  <String Id="FailureHeader">安装失败</String>
+  <String Id="FailureHyperlinkLogText">
+    一个或多个问题导致设置失败。请修复问题，然后重试安装。有关更多信息，请参见 &lt;a href="#"&gt;日志文件&lt;/a&gt; .
+  </String>
+  <String Id="FailureRestartText">您必须重新启动计算机才能完成软件的回滚。</String>
+  <String Id="FailureRestartButton">重启</String>
+  <String Id="FailureCloseButton">关闭</String>
+</WixLocalization>
