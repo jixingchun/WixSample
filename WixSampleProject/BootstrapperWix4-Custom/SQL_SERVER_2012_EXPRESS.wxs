@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi"
+     xmlns:util="http://schemas.microsoft.com/wix/UtilExtension">
+  <Fragment>
+    <?define SqlServerInstance=TEST ?>
+
+    <?define SqlInstallCommand=/ACTION=Install /Q /
+        IACCEPTSQLSERVERLICENSETERMS /FEATURES=SQLEngine /INSTANCENAME=$(var.SqlServerInstance) /SQLSYSADMINACCOUNTS=BUILTIN\Administrators /
+        SECURITYMODE=SQL /SAPWD=password1 ?>
+    <?define SqlUninstallCommand=/ACTION=Uninstall /Q /FEATURES=SQLEngine
+        /INSTANCENAME=$(var.SqlServerInstance) ?>
+    <?define SqlRepairCommand=/ACTION=Repair /Q /FEATURES=SQLEngine /
+        INSTANCENAME=$(var.SqlServerInstance) /FEATURES=SQLENGINE ?>
+
+    <util:RegistrySearch
+      Id="SqlInstanceFound"
+      Root="HKLM"
+      Key="SOFTWARE\Microsoft\Microsoft SQL Server\Instance Names\SQL"
+      Value="$(var.SqlServerInstance)"
+      Result="exists"
+      Variable="SqlInstanceFound" />
+    
+
+    <PackageGroup Id="SQL_SERVER_2012_EXPRESS">
+      <ExePackage
+        Id="SQLSERVER64"
+        SourceFile="D:\MSI\DIAViewSetup\SQL\SQLEXPR_x64_ENU.exe"
+        Name="SQLEXPR_x64_ENU.exe"
+        Compressed="no"
+        DetectCondition="SqlInstanceFound"
+        InstallCommand="$(var.SqlInstallCommand)"
+        UninstallCommand="$(var.SqlUninstallCommand)"
+        RepairCommand="$(var.SqlRepairCommand)"
+        >
+
+      </ExePackage>
+
+      <ExePackage
+        Id="SQLSERVER86"
+        SourceFile="D:\MSI\DIAViewSetup\SQL\SQLEXPR_x86_ENU.exe"
+        Name="SQLEXPR_x86_ENU.exe"
+        Compressed="no"
+        DetectCondition="SqlInstanceFound "
+        InstallCommand="$(var.SqlInstallCommand)"
+        UninstallCommand="$(var.SqlUninstallCommand)"
+        RepairCommand="$(var.SqlRepairCommand)">
+      </ExePackage>
+
+
+    </PackageGroup>
+  </Fragment>
+
+  <!--<Fragment>
+
+    <?define CustomAction.TargetDir="D:\work\Source\Common\Trial\Xingchun.ji\ProjectPack\CustomAction\bin\Debug\" ?>
+
+    --><!--是否有SqlServer数据源， 0：无，1：有 --><!--
+    <Property Id="HAS_SQLSERVER_DATASOURCE" Value="1" />
+
+    --><!--是否需要安装SqlServer， 0：无，1：有 --><!--
+    <Property Id="NEED_INSTALL_SQLSERVER" Value="1" />
+
+    --><!--自定义CustomeAction --><!--
+    <Binary Id="CA" SourceFile="$(var.CustomAction.TargetDir)CustomAction.CA.dll" />
+
+    --><!--检测SQL是否安装以及版本信息--><!--
+    <CustomAction Id="GetNeedInstallSqlserverProperty" BinaryKey="CA" DllEntry="GetNeedInstallSqlserverProperty"  Execute="firstSequence" Return="check"/>
+    <CustomAction Id="InstallSQL" BinaryKey="CA" DllEntry="installSQLaction"   Execute="immediate" Return="ignore"/>
+
+    <InstallUISequence>
+      --><!--<Custom Action="GetNeedInstallSqlserverProperty" Before="AppSearch">NOT Installed</Custom>--><!--
+      <Custom Action="GetNeedInstallSqlserverProperty" Before="AppSearch"></Custom>
+    </InstallUISequence>
+
+
+      <?define SqlServerInstance=TEST ?>
+
+      <?define SqlInstallCommand=/ACTION=Install /Q /
+        IACCEPTSQLSERVERLICENSETERMS /FEATURES=SQLEngine /INSTANCENAME=$(var.SqlServerInstance) /SQLSYSADMINACCOUNTS=BUILTIN\Administrators /
+        SECURITYMODE=SQL /SAPWD=password1 ?>
+      <?define SqlUninstallCommand=/ACTION=Uninstall /Q /FEATURES=SQLEngine
+        /INSTANCENAME=$(var.SqlServerInstance) ?>
+      <?define SqlRepairCommand=/ACTION=Repair /Q /FEATURES=SQLEngine /
+        INSTANCENAME=$(var.SqlServerInstance) /FEATURES=SQLENGINE ?>
+
+      <util:RegistrySearch
+        Id="SqlInstanceFound"
+        Root="HKLM"
+        Key="SOFTWARE\Microsoft\Microsoft SQL Server\Instance Names\SQL"
+        Value="$(var.SqlServerInstance)"
+        Result="exists"
+        Variable="SqlInstanceFound" />
+
+      <PackageGroup Id="SQL_SERVER_2012_EXPRESS">
+        <ExePackage
+          Id="SQLSERVER64"
+          SourceFile="D:\MSI\DIAViewSetup\SQL\SQLEXPR_x64_ENU.exe"
+          Name="SQLEXPR_x64_ENU.exe"
+          Compressed="no"
+          DetectCondition="NEED_INSTALL_SQLSERVER='1'"
+          InstallCondition="NEED_INSTALL_SQLSERVER='1'"
+          UninstallCommand="/ACTION=Uninstall"
+          
+          Vital="no"
+          Permanent="no" >
+
+        </ExePackage>
+
+
+        --><!--DetectCondition="HAS_SQLSERVER_DATASOURCE='1' AND NEED_INSTALL_SQLSERVER = '1'"--><!--
+
+        --><!--<ExePackage
+          Id="SQLSERVER86"
+          SourceFile="D:\MSI\DIAViewSetup\SQL\SQLEXPR_x86_ENU.exe"
+          Name="SQLEXPR_x86_ENU.exe"
+          Compressed="no"
+          DetectCondition="SqlInstanceFound "
+
+          Permanent="yes" >
+        </ExePackage>--><!--
+
+      </PackageGroup>
+
+    
+    
+  </Fragment>-->
+</Wix>

@@ -1,0 +1,30 @@
+﻿<Window x:Class="CustomBA.Views.InstallOptionsView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CustomBA.Views"
+        mc:Ignorable="d"
+        Title="安装选项"
+        Width="500"
+        Height="300" ResizeMode="NoResize" WindowStyle="ToolWindow">
+    <Grid>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="100"/>
+            <RowDefinition Height="80"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Orientation="Vertical" Grid.Row="1">
+            <Label Content="请选择需要安装的组件"></Label>
+
+            <CheckBox Content="安装Install SQL Server 2008 R2 Express (en-US)" IsChecked="{Binding InstallSqlServer, UpdateSourceTrigger=PropertyChanged}" Visibility="Visible"></CheckBox>
+            <CheckBox Content="安装加密锁" IsChecked="{Binding InstallSenseLock, UpdateSourceTrigger=PropertyChanged}" Visibility="Visible"></CheckBox>
+            <CheckBox Content="安装OPC Server" IsChecked="{Binding InstallOpcServer, UpdateSourceTrigger=PropertyChanged}" Visibility="Visible"></CheckBox>
+
+            <Button Content="确定" Command="{Binding ConfirmCommand}" CommandParameter="{Binding ElementName=ThisWindow}"/>
+        </StackPanel>
+    </Grid>
+</Window>
+

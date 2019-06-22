@@ -1,0 +1,111 @@
+﻿<Window x:Class="CustomBA.RootView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:ux="clr-namespace:CustomBA"
+        xmlns:utils="clr-namespace:CustomBA.Utils"
+        WindowStartupLocation="CenterScreen"
+        Title="{Binding InstallationViewModel.Title}"
+
+        Width="500"
+        Height="400" >
+
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+
+        <Style TargetType="Button">
+            <Setter Property="Height"  Value="30" />
+            <Setter Property="Width"  Value="40" />
+            <Setter Property="Margin"  Value="0 0 5 0" />
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+            <Setter Property="VerticalAlignment" Value="Stretch"/>
+        </Style>
+
+        <Style TargetType="TextBlock">
+            <Setter Property="Height"  Value="30" />
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+            <Setter Property="VerticalAlignment" Value="Stretch"/>
+        </Style>
+
+        <Style TargetType="TextBox">
+            <Setter Property="Height"  Value="30" />
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+            <Setter Property="VerticalAlignment" Value="Stretch"/>
+        </Style>
+
+        <Style TargetType="ProgressBar">
+            <Setter Property="Height"  Value="15" />
+        </Style>
+
+        <Style TargetType="StackPanel">
+            <Setter Property="VerticalAlignment"  Value="Center" />
+        </Style>
+
+    </Window.Resources>
+
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="80"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Orientation="Horizontal" Grid.Row="0">
+
+            <TextBlock>版本：</TextBlock>
+            <TextBlock DataContext="{Binding InstallationViewModel}" Text="{Binding Version}"/>
+
+        </StackPanel>
+
+        <StackPanel Orientation="Horizontal" Grid.Row="1" >
+            <TextBlock>安装目录:</TextBlock>
+            <TextBox Width="300" Text="{Binding InstallDirectory, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+            <!-- 选择安装目录 -->
+            <Button Width="40"  Command="{Binding SelectInstallDirectoryCommand}" >...</Button>
+        </StackPanel>
+
+        <StackPanel Orientation="Vertical" Grid.Row="2" 
+                    >
+            <CheckBox Content="完成后运行工程"></CheckBox>
+            <CheckBox Content="安装Install SQL Server 2008 R2 Express (en-US)" IsChecked="{Binding InstallSqlServerFlag, UpdateSourceTrigger=PropertyChanged}" Visibility="Visible"></CheckBox>
+
+        </StackPanel>
+
+        <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Grid.Row="3" >
+
+            <!-- Install -->
+            <Button DataContext="{Binding InstallationViewModel}" Command="{Binding InstallCommand}" Visibility="{Binding InstallEnabled, Converter={StaticResource BooleanToVisibilityConverter}}" >安装</Button>
+
+            <!-- Uninstall -->
+            <Button DataContext="{Binding InstallationViewModel}" Command="{Binding UninstallCommand}" Visibility="{Binding UninstallEnabled, Converter={StaticResource BooleanToVisibilityConverter}}">卸载</Button>
+
+            <!-- Cancel -->
+            <Button DataContext="{Binding}" Command="{Binding CancelCommand}" Visibility="{Binding CancelEnabled, Converter={StaticResource BooleanToVisibilityConverter}}">取消</Button>
+
+            <!-- 完成 -->
+            <Button  DataContext="{Binding InstallationViewModel}"
+                    Visibility="{Binding CompleteEnabled, Converter={StaticResource BooleanToVisibilityConverter}}"
+                     
+                     Command="{Binding CompleteCommand}">完成</Button>
+            
+            <!-- Exit -->
+            <Button  DataContext="{Binding InstallationViewModel}" Command="{Binding CloseCommand}">Exit</Button>
+        </StackPanel>
+
+        <StackPanel Orientation="Vertical" Grid.Row="4">
+            <!-- Progress -->
+            <ProgressBar DataContext="{Binding ProgressViewModel}" Value="{Binding Path=Progress}" />
+            <TextBlock DataContext="{Binding ProgressViewModel}" Text="{Binding Message}"/>
+
+        </StackPanel>
+
+        <StackPanel Orientation="Vertical" Grid.Row="5">
+            <!-- 完成 " -->
+            <Button Width="120" Command="{Binding OpenOptionCommand}" >打开安装选项</Button>
+        </StackPanel>
+    </Grid>
+</Window>

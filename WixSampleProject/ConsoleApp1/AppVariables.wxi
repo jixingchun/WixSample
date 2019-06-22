@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Include>
+	<!-- TODO: Put your code here. -->
+  <?define MajorVersion = "2"?>
+  <?define MinorVersion = "6"?>
+  <?define PatchVersion = "1"?>
+  <?define MajorMinor = "$(var.MajorVersion).$(var.MinorVersion)"?>
+  <?define VersionNumber = "$(var.MajorVersion).$(var.MinorVersion).$(var.PatchVersion)"?>
+
+  <?define ProductName = "DIAView Project"?>
+  <?define LANG = "1033"?>
+  <?define ManufacturerName = "delta"?>
+  <?define UpgradeCode = "40C76BDB-6F1C-4A47-A8BC-537281E4E20F"?>
+
+  
+  <?define RegistKeyRoot = "Software\Delta\DIAview\UserProject"?>
+  
+  <?define Photoes = "Images\"?>
+  
+  
+  <?define CustomAction.TargetDir = "..\CustomAction\"?>
+  
+  <?define SourceFileDir = "D:\soft\DVStudio_PreRelease\"?>
+
+  <!--<?define UserProjectFile = "D:\work\DiaViewProject\DemoProject\"?>-->
+  
+</Include>

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi"
+     xmlns:bal="http://schemas.microsoft.com/wix/BalExtension"
+     xmlns:util="http://schemas.microsoft.com/wix/UtilExtension">
+  <Bundle Name="DIAView Project" Version="1.0.0.0" Manufacturer="jxc"
+          UpgradeCode="bf043817-76a9-4696-a0e4-eec59e8fb62c"
+          IconSourceFile="Images\diaapp.ico" DisableModify="yes">
+    
+    <!--<Variable  Name="OS_CHECK_NG" Value="the operation system must be win7"/>
+    
+    <bal:Condition Message="[OS_CHECK_NG]">
+      <![CDATA[VersionNT > v6.1]]>
+    </bal:Condition>-->
+
+    <BootstrapperApplicationRef Id="WixStandardBootstrapperApplication.RtfLicense" >
+      <bal:WixStandardBootstrapperApplication
+        LocalizationFile="LocalizationFile\WixBAUI_zh-CN.wxl"
+        LicenseFile="..\License\license_zh-CN.rtf"
+        ShowFilesInUse="yes"
+        ShowVersion="yes"
+        SuppressRepair="no"
+        LogoFile="..\Images\diaapp.ico"
+        LogoSideFile="..\Images\diaapp.ico"/>
+
+    </BootstrapperApplicationRef>
+    
+    <Variable Name="LaunchTarget" Value="[InstallFolder]\DIAView Project\HMIRun.exe"/>
+
+    <Chain>
+      <!-- TODO: Define the list of chained packages. -->
+      <!-- <MsiPackage SourceFile="path\to\your.msi" /> -->
+      
+      <!--<PackageGroupRef Id="NetFx462Web" />-->
+
+      <!-- 安装运行时 -->
+      <MsiPackage Id="RuntimeSetup.msi"
+        SourceFile="C:\Users\xingchun.ji\AppData\Local\Temp\DiaviewPack\OutputMSI\DIAView\en-us\RuntimeSetup.msi"
+        Compressed="no"
+        ForcePerMachine="yes"
+        Permanent="no"
+        Vital="yes"
+        DisplayInternalUI="no">
+        <MsiProperty Name="INSTALLFOLDER" Value="[InstallFolder]" />
+      </MsiPackage>
+
+      <!-- 安装用户工程 -->
+      <MsiPackage Id="UserProjectSetup.msi"
+        SourceFile="C:\Users\xingchun.ji\AppData\Local\Temp\DiaviewPack\OutputMSI\DIAView\en-us\UserProjectSetup.msi"
+        Compressed="yes"
+        ForcePerMachine="yes"
+        Permanent="no"
+        Vital="yes"
+        DisplayInternalUI="no">
+      </MsiPackage>
+      
+      <!-- 安装SQL Server-->
+      <MsiPackage Id="SqlServerInstall.msi"
+        SourceFile="D:\work\Source\Common\Trial\Xingchun.ji\ProjectPack\SqlServerInstall\bin\Debug\SqlServerInstall.msi"
+        Compressed="no"
+        ForcePerMachine="yes"
+        Permanent="no"
+        Vital="no"
+        DisplayInternalUI="no">
+        <MsiProperty Name="SETUP_SOURCE_DIR" Value="[WixBundleOriginalSourceFolder]" />
+
+      </MsiPackage>
+
+    </Chain>
+
+  </Bundle>
+</Wix>

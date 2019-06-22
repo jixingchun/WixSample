@@ -1,0 +1,62 @@
+<Wix xmlns='http://wixtoolset.org/schemas/v4/wxs'
+     xmlns:bal='http://wixtoolset.org/schemas/v4/wxs/bal'
+     xmlns:util='http://wixtoolset.org/schemas/v4/wxs/util'>
+
+  <Bundle Name='WIX4 1.0' Manufacturer='delta'
+          Version='1.0' UpgradeCode='886BFE1C-EA17-4ADF-A94C-97D50CC0088A'
+          Compressed='yes'
+          bal:PrereqPackage='no'
+          >
+    <BootstrapperApplicationRef Id='ManagedBootstrapperApplicationHost'>
+
+      <Payload SourceFile="D:\work\Source\Common\Trial\Xingchun.ji\ProjectPack\CustomBA\bin\Debug\CustomBA.dll" />
+      <Payload SourceFile="D:\work\Source\Common\Trial\Xingchun.ji\ProjectPack\CustomBA\bin\Debug\BootstrapperCore.config" />
+    </BootstrapperApplicationRef>
+
+    <Variable Name="InstallFolder" Value="[ProgramFilesFolder]" />
+    <Variable Name="LaunchTarget" Value="[InstallFolder]\DIAView Project\HMIRun.exe"/>
+    
+    <Chain>
+
+      <PackageGroupRef Id='NetFx40RedistAsPrereq' />
+
+     
+      <!-- 安装运行时 -->
+      <MsiPackage Id="DIAViewSetup.Runtime.msi"
+        SourceFile="C:\Users\xingchun.ji\AppData\Local\Temp\DiaviewPackRuntimeCache\DIAView\en\DIAViewSetup.Runtime.msi"
+        Compressed="no"
+        ForcePerMachine="yes"
+        Permanent="no"
+        Vital="yes"
+        DisplayInternalUI="no">
+        <MsiProperty Name="INSTALLFOLDER" Value="[InstallFolder]" />
+      </MsiPackage>
+      
+      <!-- 安装用户工程 -->
+      <MsiPackage Id="DIAViewSetup.UserProject.msi"
+        SourceFile="C:\Users\xingchun.ji\AppData\Local\Temp\DiaviewPack\OutputMSI\UserSetup\en\DIAViewSetup.UserProject.msi"
+        Compressed="yes"
+        ForcePerMachine="yes"
+        Permanent="no"
+        Vital="yes"
+        DisplayInternalUI="no">
+
+      </MsiPackage>
+
+      <!-- 安装SQL Server-->
+      <MsiPackage Id="SqlServerInstall.msi"
+        SourceFile="D:\work\Source\Common\Trial\Xingchun.ji\ProjectPack\SqlServerInstall\bin\Debug\SqlServerInstall.msi"
+        Compressed="no"
+        ForcePerMachine="yes"
+        Permanent="no"
+        Vital="no"
+        DisplayInternalUI="no"
+        InstallCondition="InstallSqlServerFlag=1"           
+        After="DIAViewSetup.UserProject.msi">
+
+        <MsiProperty Name="SETUP_SOURCE_DIR" Value="[WixBundleOriginalSourceFolder]" />
+        
+      </MsiPackage>
+    </Chain>
+  </Bundle>
+</Wix>
